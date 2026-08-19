@@ -1,0 +1,41 @@
+.demo-card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  background: var(--code-bg);
+}
+
+.demo-card h4 {
+  margin: 0 0 8px;
+  color: var(--text-h);
+}
+
+.demo-card p {
+  margin-bottom: 8px;
+}
+
+.demo-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 8px 0;
+}
+
+.demo-actions button,
+.demo-actions input {
+  font: inherit;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-h);
+}
+
+.demo-actions button {
+  cursor: pointer;
+}
+
+.demo-actions button:hover {
+  border-color: var(--accent-border);
+}
