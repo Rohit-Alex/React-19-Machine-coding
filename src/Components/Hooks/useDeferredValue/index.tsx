@@ -7,7 +7,7 @@ export const UseDeferredValueDemo = () => {
     <section>
       <h2>useDeferredValue</h2>
       <p>
-        Full writeup: <code>src/Components/Hooks/useDeferredValue.md</code>.
+        Full writeup: <code>src/Components/Hooks/useDeferredValue/useDeferredValue.md</code>.
         Same responsiveness goal as <code>useTransition</code>, but for a
         value you don't own the setter for — and the memo gotcha that makes
         or breaks it.

@@ -8,7 +8,7 @@ export const UseMemoDemo = () => {
     <section>
       <h2>useMemo</h2>
       <p>
-        Full writeup: <code>src/Components/Hooks/useMemo.md</code>. Open the
+        Full writeup: <code>src/Components/Hooks/useMemo/useMemo.md</code>. Open the
         console before interacting with each demo below.
       </p>
       <ExpensiveCalculation />
