@@ -17,24 +17,34 @@ Status legend: `[ ]` not started · `[~]` in progress · `[x]` done
 
 Built-in hooks, one at a time, in rough order of interview frequency.
 
-- [x] `useMemo` — https://react.dev/reference/react/useMemo
-- [x] `useCallback` — https://react.dev/reference/react/useCallback
-- [x] `useState` (incl. lazy init, functional updates, batching)
-- [x] `useEffect` (incl. cleanup, dependency pitfalls, StrictMode double-invoke)
-- [x] `useLayoutEffect` (vs `useEffect`, when it's actually needed)
-- [x] `useRef` (mutable refs, DOM refs, ref as instance variable, avoiding re-renders)
-- [x] `useReducer` (vs `useState`, complex state transitions)
-- [x] `useContext` (avoiding prop drilling, re-render implications, splitting contexts)
-- [x] `useTransition` (React 19, concurrent UI, isPending)
-- [x] `useDeferredValue` (React 19, deferring expensive re-renders)
-- [ ] `useId` (accessible unique ids, SSR-safe)
-- [ ] `useSyncExternalStore` (subscribing to external stores correctly)
-- [ ] `useImperativeHandle` + `forwardRef`/`ref` as prop (React 19 no longer needs `forwardRef`)
-- [ ] `use` (React 19 — reading promises/context conditionally)
-- [ ] `useActionState` (React 19 — form actions, pending/error state)
-- [ ] `useOptimistic` (React 19 — optimistic UI updates)
-- [ ] `useDebugValue` (custom hook debugging in DevTools)
-- [ ] Custom hooks roundup: `useDebounce`, `useThrottle`, `usePrevious`, `useOnClickOutside`, `useLocalStorage`, `useFetch`, `useWindowSize`, `useIntersectionObserver`, `useEventListener`, `useLazyLoadOnScreenView`
+- [x] `useMemo` — [notes](src/Components/Hooks/useMemo/useMemo.md)
+- [x] `useCallback` — [notes](src/Components/Hooks/useCallback/useCallback.md)
+- [x] `useState` (incl. lazy init, functional updates, batching) — [notes](src/Components/Hooks/useState/useState.md)
+- [x] `useEffect` (incl. cleanup, dependency pitfalls, StrictMode double-invoke) — [notes](src/Components/Hooks/useEffect/useEffect.md)
+- [x] `useLayoutEffect` (vs `useEffect`, when it's actually needed) — [notes](src/Components/Hooks/useLayoutEffect/useLayoutEffect.md)
+- [x] `useRef` (mutable refs, DOM refs, ref as instance variable, avoiding re-renders) — [notes](src/Components/Hooks/useRef/useRef.md)
+- [x] `useReducer` (vs `useState`, complex state transitions) — [notes](src/Components/Hooks/useReducer/useReducer.md)
+- [x] `useContext` (avoiding prop drilling, re-render implications, splitting contexts) — [notes](src/Components/Hooks/useContext/useContext.md)
+- [x] `useTransition` (React 19, concurrent UI, isPending) — [notes](src/Components/Hooks/useTransition/useTransition.md)
+- [x] `useDeferredValue` (React 19, deferring expensive re-renders) — [notes](src/Components/Hooks/useDeferredValue/useDeferredValue.md)
+- [x] `useId` (accessible unique ids, SSR-safe) — [notes](src/Components/Hooks/useId/useId.md)
+- [x] `useSyncExternalStore` (subscribing to external stores correctly) — [notes](src/Components/Hooks/useSyncExternalStore/useSyncExternalStore.md)
+- [x] `useImperativeHandle` + `forwardRef`/`ref` as prop (React 19 no longer needs `forwardRef`) — [notes](src/Components/Hooks/useImperativeHandle/useImperativeHandle.md)
+- [x] `use` (React 19 — reading promises/context conditionally) — [notes](src/Components/Hooks/use/use.md)
+- [x] `useActionState` (React 19 — form actions, pending/error state) — [notes](src/Components/Hooks/useActionState/useActionState.md)
+- [x] `useOptimistic` (React 19 — optimistic UI updates) — [notes](src/Components/Hooks/useOptimistic/useOptimistic.md)
+- [x] `useDebugValue` (custom hook debugging in DevTools) — [notes](src/Components/Hooks/useDebugValue/useDebugValue.md)
+- Custom hooks roundup:
+  - [x] [`useDebounce`](src/Components/Hooks/useDebounce/useDebounce.ts)
+  - [x] [`useThrottle`](src/Components/Hooks/useThrottle/useThrottle.ts)
+  - [x] [`usePrevious`](src/Components/Hooks/usePrevious/usePrevious.ts)
+  - [x] [`useOnClickOutside`](src/Components/Hooks/useOnClickOutside/useOnClickOutside.ts)
+  - [x] [`useLocalStorage`](src/Components/Hooks/useLocalStorage/useLocalStorage.ts)
+  - [x] [`useFetch`](src/Components/Hooks/useFetch/useFetch.ts)
+  - [x] [`useWindowSize`](src/Components/Hooks/useWindowSize/useWindowSize.ts)
+  - [x] [`useIntersectionObserver`](src/Components/Hooks/useIntersectionObserver/useIntersectionObserver.ts)
+  - [x] [`useEventListener`](src/Components/Hooks/useEventListener/useEventListener.ts)
+  - [x] [`useLazyLoadOnScreenView`](src/Components/Hooks/useLazyLoadOnScreenView/useLazyLoadOnScreenView.ts)
 
 ## Phase 2 — Classic Machine Coding Build Questions
 
@@ -112,4 +122,5 @@ fintech (Razorpay/Paytm/Groww), and product startups (Swiggy/Flipkart/Atlassian/
 Add anything you've personally been asked or want covered — I'll fold these
 into the right phase above.
 
-- [ ]
+- [ ] Currying with placeholder
+- [ ] Abort controller
