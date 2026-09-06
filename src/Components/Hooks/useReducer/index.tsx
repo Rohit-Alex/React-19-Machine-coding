@@ -7,7 +7,7 @@ export const UseReducerDemo = () => {
     <section>
       <h2>useReducer</h2>
       <p>
-        Full writeup: <code>src/Components/Hooks/useReducer.md</code>.
+        Full writeup: <code>src/Components/Hooks/useReducer/useReducer.md</code>.
         Snapshot behavior, batching, and Strict Mode double-invoke are the
         same as <code>useState</code>, so only the reducer pattern itself and
         the 3-argument lazy-init form are demoed here.

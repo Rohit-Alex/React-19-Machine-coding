@@ -8,7 +8,7 @@ export const UseRefDemo = () => {
     <section>
       <h2>useRef</h2>
       <p>
-        Full writeup: <code>src/Components/Hooks/useRef.md</code>. The one
+        Full writeup: <code>src/Components/Hooks/useRef/useRef.md</code>. The one
         rule that matters: changing <code>ref.current</code> never triggers
         a re-render.
       </p>

@@ -7,7 +7,7 @@ export const UseTransitionDemo = () => {
     <section>
       <h2>useTransition</h2>
       <p>
-        Full writeup: <code>src/Components/Hooks/useTransition.md</code>.
+        Full writeup: <code>src/Components/Hooks/useTransition/useTransition.md</code>.
         Marking a state update as low-priority so React can keep the UI
         responsive while it catches up.
       </p>
