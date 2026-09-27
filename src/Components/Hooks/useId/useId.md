@@ -50,7 +50,7 @@ particular component instance. Stable across re-renders of that instance.
 - **Don't use it as a list key.** Keys need to track the _data's_ identity
   across reorders/inserts/deletes; `useId` tracks the _component
   instance's_ position in the tree. See
-  [`ListKeyMisuse.tsx`](./useId/ListKeyMisuse.tsx) for what goes wrong when
+  [`ListKeyMisuse.tsx`](./ListKeyMisuse.tsx) for what goes wrong when
   you conflate the two.
 - **Don't use it as a cache key for `use()`.** Same root issue — it's not
   derived from the data being cached.
@@ -80,7 +80,7 @@ particular component instance. Stable across re-renders of that instance.
 
 Call `useId()` once per component and suffix the result (`` `${id}-firstName` ``)
 instead of calling it once per field — cheaper, and it's the pattern the
-docs themselves use. See [`SharedPrefix.tsx`](./useId/SharedPrefix.tsx).
+docs themselves use. See [`SharedPrefix.tsx`](./SharedPrefix.tsx).
 
 ### 2. Why it can't replace a data-derived key
 
@@ -92,7 +92,7 @@ id for each row" but is functionally identical to `key={index}`: stable
 per render, blind to the data. Reorder the array and React reuses each DOM
 node for whatever now sits at that index — any state living in that row
 (an uncontrolled input, local component state) stays behind instead of
-following its item. See [`ListKeyMisuse.tsx`](./useId/ListKeyMisuse.tsx).
+following its item. See [`ListKeyMisuse.tsx`](./ListKeyMisuse.tsx).
 
 ### 3. SSR/hydration id stability (conceptual)
 

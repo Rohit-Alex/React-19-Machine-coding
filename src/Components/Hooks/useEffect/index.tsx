@@ -1,4 +1,6 @@
 import { EffectEvent } from "./EffectEvent";
+import { EffectEventCustomHook } from "./EffectEventCustomHook";
+import { EffectEventPitfall } from "./EffectEventPitfall";
 import { Lifecycle } from "./Lifecycle";
 import { RaceCondition } from "./RaceCondition";
 import { UnstableDependency } from "./UnstableDependency";
@@ -18,6 +20,8 @@ export const UseEffectDemo = () => {
       <RaceCondition />
       <UnstableDependency />
       <EffectEvent />
+      <EffectEventPitfall />
+      <EffectEventCustomHook />
     </section>
   );
 };

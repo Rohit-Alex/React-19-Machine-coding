@@ -10,12 +10,12 @@ loops, though the function calling it must still be a Component or a Hook.
 const value = use(resource);
 ```
 
-Two live demos: [`ReadPromiseWithSuspense.tsx`](./use/ReadPromiseWithSuspense.tsx)
+Two live demos: [`ReadPromiseWithSuspense.tsx`](./ReadPromiseWithSuspense.tsx)
 (reading a Promise, with `Suspense` for the pending state and a hand-written
 error boundary for the rejected state — this repo has no
 `react-error-boundary` dependency, so it's a small local class component
 instead of the docs' exact example) and
-[`ConditionalContextRead.tsx`](./use/ConditionalContextRead.tsx) (calling
+[`ConditionalContextRead.tsx`](./ConditionalContextRead.tsx) (calling
 `use(ThemeContext)` inside an `if`, mirroring the docs' `Button`/`Panel`
 example). Everything else below is conceptual.
 
@@ -29,9 +29,9 @@ const value = use(resource);
 
 ### Parameters
 
-| Parameter  | Description                                                                 |
-| ---------- | ---------------------------------------------------------------------------- |
-| `resource` | The source of the data you want to read — a Promise or a Context object.     |
+| Parameter  | Description                                                              |
+| ---------- | ------------------------------------------------------------------------ |
+| `resource` | The source of the data you want to read — a Promise or a Context object. |
 
 ### Returns
 
@@ -52,7 +52,7 @@ boundary's fallback is shown instead.
   rules is not relaxed.
 - **Unlike every other Hook, `use` can be called conditionally and inside
   loops and early returns.** See
-  [`ConditionalContextRead.tsx`](./use/ConditionalContextRead.tsx), where
+  [`ConditionalContextRead.tsx`](./ConditionalContextRead.tsx), where
   `Button` only calls `use(ThemeContext)` inside `if (show) { ... }`.
 - **In Server Components, prefer `await` over `use`.** `await` picks up
   rendering exactly where it left off once the Promise resolves; `use`
@@ -66,7 +66,7 @@ boundary's fallback is shown instead.
   `use` never sees the same one twice and the component re-suspends
   forever. Instead, create the Promise once — in a Server Component and
   pass it down as a prop, or (as in
-  [`ReadPromiseWithSuspense.tsx`](./use/ReadPromiseWithSuspense.tsx), since
+  [`ReadPromiseWithSuspense.tsx`](./ReadPromiseWithSuspense.tsx), since
   this app has no Server Component boundary) inside an event handler, and
   store the resulting Promise in state so it stays stable across renders.
 - **The resolved value must be serializable across the server/client
@@ -87,7 +87,7 @@ boundary's fallback is shown instead.
 The core case: a component that needs the resolved value of an
 asynchronous resource, without hand-rolling `isLoading`/`error`/`data`
 state via `useEffect`. See
-[`ReadPromiseWithSuspense.tsx`](./use/ReadPromiseWithSuspense.tsx) — the
+[`ReadPromiseWithSuspense.tsx`](./ReadPromiseWithSuspense.tsx) — the
 Promise is created once per click (kept stable in state, not recreated
 every render), `Message` calls `use(messagePromise)`, `Suspense` shows a
 fallback while it's pending, and a local `ErrorBoundary` class component
@@ -107,7 +107,7 @@ client.
 
 Ordinary Hooks must be called unconditionally at a component's top level;
 `use` doesn't have that restriction for Context. See
-[`ConditionalContextRead.tsx`](./use/ConditionalContextRead.tsx) — `Button`
+[`ConditionalContextRead.tsx`](./ConditionalContextRead.tsx) — `Button`
 only calls `use(ThemeContext)` when its `show` prop is true, while `Panel`
 still calls it unconditionally (the default recommendation whenever the
 call doesn't actually need to be conditional).
@@ -116,14 +116,14 @@ call doesn't actually need to be conditional).
 
 ## `use` vs. other ways to read async data / context
 
-|                                          | `useEffect` + manual state          | `use` + `Suspense`/error boundary               |
-| ---------------------------------------- | ------------------------------------ | ------------------------------------------------ |
-| Loading state                             | Tracked by hand (`isLoading`)        | Declarative — nearest `Suspense` fallback         |
-| Error state                               | Tracked by hand (`error`)            | Declarative — nearest error boundary              |
-| Can be called conditionally               | No — top-level only                  | Yes, for both Promises and Context                |
-| Re-fetching a changed Promise identity    | Manual effect dependency handling    | Automatic — a new Promise just suspends again      |
+|                                        | `useEffect` + manual state        | `use` + `Suspense`/error boundary             |
+| -------------------------------------- | --------------------------------- | --------------------------------------------- |
+| Loading state                          | Tracked by hand (`isLoading`)     | Declarative — nearest `Suspense` fallback     |
+| Error state                            | Tracked by hand (`error`)         | Declarative — nearest error boundary          |
+| Can be called conditionally            | No — top-level only               | Yes, for both Promises and Context            |
+| Re-fetching a changed Promise identity | Manual effect dependency handling | Automatic — a new Promise just suspends again |
 
-|                                          | `useContext`                        | `use(SomeContext)`                                |
-| ---------------------------------------- | ------------------------------------ | ------------------------------------------------- |
-| Reads the current Context value           | Yes                                  | Yes — identical result                             |
-| Can be called conditionally/in loops      | No — top-level only                  | Yes                                                 |
+|                                      | `useContext`        | `use(SomeContext)`     |
+| ------------------------------------ | ------------------- | ---------------------- |
+| Reads the current Context value      | Yes                 | Yes — identical result |
+| Can be called conditionally/in loops | No — top-level only | Yes                    |

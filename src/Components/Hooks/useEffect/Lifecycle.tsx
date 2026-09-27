@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 function createConnection(roomId: string) {
   return {
     connect() {
-      console.log(`[Lifecycle] connecting to "${roomId}"`);
+      console.log(`[Lifecycle: ] connecting to "${roomId}"`);
     },
     disconnect() {
-      console.log(`[Lifecycle] disconnecting from "${roomId}"`);
+      console.log(`[Lifecycle: ] disconnecting from "${roomId}"`);
     },
   };
 }
@@ -26,7 +26,7 @@ export const Lifecycle = () => {
     return () => connection.disconnect();
   }, [roomId]);
 
-  console.log("[RENDERING]: Room ID -> " + roomId);
+  console.log("[Lifecycle: RENDERING]: Room ID -> " + roomId);
 
   return (
     <div className="demo-card">
