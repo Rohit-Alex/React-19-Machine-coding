@@ -27,12 +27,21 @@ export const Batching = () => {
   };
 
   const handlePuzzled = () => {
-    setCount(count + 1);
-    setCount(count + 1);
-    setCount(count + 1);
-    setCount((c) => c + 1);
-    setCount((c) => c + 1);
-    setCount(count + 1);
+    setCount(count + 1); // 0 + 1
+    setCount(count + 1); // 0 + 1
+    setCount(count + 1); // 0 + 1
+    setCount((c) => c + 1); // prev value + 1
+    setCount((c) => c + 1); // prev value + 1 => 3
+    setRenders((r) => r + 1);
+  };
+
+  const handlePuzzled2 = () => {
+    setCount(count + 1); // 0 + 1
+    setCount(count + 1); // 0 + 1
+    setCount(count + 1); // 0 + 1
+    setCount((c) => c + 1); // prev value + 1
+    setCount((c) => c + 1); // prev value + 1
+    setCount(count + 1); // 0 + 1 => 1
     setRenders((r) => r + 1);
   };
 
@@ -46,7 +55,8 @@ export const Batching = () => {
       <div className="demo-actions">
         <button onClick={handleClickDirect}>+1 (direct value)</button>
         <button onClick={handleClickUpdater}>+1 (updater)</button>
-        <button onClick={handlePuzzled}>+1 (mixed)</button>
+        <button onClick={handlePuzzled}>+? (mixed)</button>
+        <button onClick={handlePuzzled2}>+? (mixed2)</button>
       </div>
       <p>
         count: {count}, clicks so far: {renders}

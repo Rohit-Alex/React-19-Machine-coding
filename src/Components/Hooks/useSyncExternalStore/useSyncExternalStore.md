@@ -18,9 +18,9 @@ snapshot within a render, even under concurrent features like
 const snapshot = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot?);
 ```
 
-Two live demos: [`WindowWidth.tsx`](./useSyncExternalStore/WindowWidth.tsx)
+Two live demos: [`WindowWidth.tsx`](./WindowWidth.tsx)
 (subscribing to a real browser API, with `getServerSnapshot`) and
-[`TinyStore.tsx`](./useSyncExternalStore/TinyStore.tsx) (a hand-rolled
+[`TinyStore.tsx`](./TinyStore.tsx) (a hand-rolled
 external store read by two unrelated components, staying in sync without
 Context or prop drilling). Everything else below is conceptual.
 
@@ -86,7 +86,7 @@ re-renders the component whenever the snapshot changes (identified by
 `subscribe` wires up the native event listener; `getSnapshot` reads the
 current value; wrap both in a custom hook (`useWindowWidth`,
 `useOnlineStatus`) so consuming components don't see the plumbing. See
-[`WindowWidth.tsx`](./useSyncExternalStore/WindowWidth.tsx).
+[`WindowWidth.tsx`](./WindowWidth.tsx).
 
 ### 2. Reading a store shared across unrelated components
 
@@ -94,7 +94,7 @@ When two components need the same externally-owned state and aren't in a
 parent/child relationship that makes prop drilling natural, subscribing
 each one directly to the store (rather than routing the value through
 Context) keeps them in sync with no coordination code. See
-[`TinyStore.tsx`](./useSyncExternalStore/TinyStore.tsx).
+[`TinyStore.tsx`](./TinyStore.tsx).
 
 ### 3. Avoiding tearing under concurrent rendering (conceptual)
 
