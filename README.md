@@ -97,7 +97,7 @@ fintech (Razorpay/Paytm/Groww), and product startups (Swiggy/Flipkart/Atlassian/
 
 ## Phase 3 — State Management & Data Fetching
 
-- [ ] Context + `useReducer` as a mini global store
+- [x] Context + `useReducer` as a mini global store — [notes](src/Components/DataFetching/MiniStore/MiniStore.md)
 - [ ] Building a minimal client cache (stale-while-revalidate concept) from scratch
 - [x] Race conditions in data fetching & request cancellation (`AbortController`) — [notes](src/Components/DataFetching/RaceConditions/RaceConditions.md)
 - [x] Optimistic updates (manual, then via `useOptimistic`) — [notes](src/Components/DataFetching/OptimisticUpdates/OptimisticUpdates.md)
