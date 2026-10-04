@@ -8,6 +8,7 @@ import { PaginationDemo } from "./Components/MachineCoding/Pagination";
 import { StopwatchDemo } from "./Components/MachineCoding/Stopwatch";
 import { CountdownTimerDemo } from "./Components/MachineCoding/CountdownTimer";
 import { GridLightsDemo } from "./Components/MachineCoding/GridLights";
+import { MiniStoreDemo } from "./Components/DataFetching/MiniStore";
 import { RaceConditionsDemo } from "./Components/DataFetching/RaceConditions";
 import { OptimisticUpdatesDemo } from "./Components/DataFetching/OptimisticUpdates";
 import { RealtimeTransportsDemo } from "./Components/DataFetching/RealtimeTransports";
@@ -147,7 +148,7 @@ const buildDemos: ComponentType[] = [
   TicketBookingDemo,
 ];
 
-const dataDemos: ComponentType[] = [RaceConditionsDemo, OptimisticUpdatesDemo, RealtimeTransportsDemo];
+const dataDemos: ComponentType[] = [MiniStoreDemo, RaceConditionsDemo, OptimisticUpdatesDemo, RealtimeTransportsDemo];
 
 const perfDemos: ComponentType[] = [MemoizationDemo, ProfilerDemo, CodeSplittingDemo, VirtualizationDeepDiveDemo, ContextPerformanceDemo];
 
