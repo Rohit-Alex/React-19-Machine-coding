@@ -11,12 +11,15 @@ interface UseComboboxOptions<T> {
   onSelect: (item: T) => void;
   /** Second Escape press, when the list is already closed. */
   onClear: () => void;
+  /** Multi-select keeps the list open so several options can be picked. */
+  closeOnSelect?: boolean;
 }
 
 export function useCombobox<T>({
   items,
   onSelect,
   onClear,
+  closeOnSelect = true,
 }: UseComboboxOptions<T>) {
   const listboxId = useId();
   const [isOpen, setIsOpen] = useState(false);
@@ -96,7 +99,7 @@ export function useCombobox<T>({
         if (!item) return;
         event.preventDefault();
         onSelect(item);
-        close();
+        if (closeOnSelect) close();
         return;
       }
 
