@@ -7,6 +7,30 @@ import { InfiniteScrollDemo } from "./Components/MachineCoding/InfiniteScroll";
 import { PaginationDemo } from "./Components/MachineCoding/Pagination";
 import { StopwatchDemo } from "./Components/MachineCoding/Stopwatch";
 import { CountdownTimerDemo } from "./Components/MachineCoding/CountdownTimer";
+import { GridLightsDemo } from "./Components/MachineCoding/GridLights";
+import { RaceConditionsDemo } from "./Components/DataFetching/RaceConditions";
+import { OptimisticUpdatesDemo } from "./Components/DataFetching/OptimisticUpdates";
+import { RealtimeTransportsDemo } from "./Components/DataFetching/RealtimeTransports";
+import { MemoizationDemo } from "./Components/Performance/Memoization";
+import { ProfilerDemo } from "./Components/Performance/Profiler";
+import { CodeSplittingDemo } from "./Components/Performance/CodeSplitting";
+import { VirtualizationDeepDiveDemo } from "./Components/Performance/VirtualizationDeepDive";
+import { ContextPerformanceDemo } from "./Components/Performance/ContextPerformance";
+import { TicketBookingDemo } from "./Components/MachineCoding/TicketBooking";
+import { VideoPlayerDemo } from "./Components/MachineCoding/VideoPlayer";
+import { ParkingLotDemo } from "./Components/MachineCoding/ParkingLot";
+import { SpreadsheetDemo } from "./Components/MachineCoding/Spreadsheet";
+import { GroupedAutocompleteDemo } from "./Components/MachineCoding/GroupedAutocomplete";
+import { MultiSelectDemo } from "./Components/MachineCoding/MultiSelect";
+import { TodoUndoRedoDemo } from "./Components/MachineCoding/TodoUndoRedo";
+import { TicTacToeDemo } from "./Components/MachineCoding/TicTacToe";
+import { FileUploadDemo } from "./Components/MachineCoding/FileUpload";
+import { MultiStepFormDemo } from "./Components/MachineCoding/MultiStepForm";
+import { StarRatingDemo } from "./Components/MachineCoding/StarRating";
+import { ToastDemo } from "./Components/MachineCoding/Toast";
+import { ModalDemo } from "./Components/MachineCoding/Modal";
+import { TabsDemo } from "./Components/MachineCoding/Tabs";
+import { AccordionDemo } from "./Components/MachineCoding/Accordion";
 import { TypeaheadDemo } from "./Components/MachineCoding/Typeahead";
 import { KanbanBoardDemo } from "./Components/MachineCoding/KanbanBoard";
 import { OtpInputDemo } from "./Components/MachineCoding/OtpInput";
@@ -46,6 +70,14 @@ import { UseSyncExternalStoreDemo } from "./Components/Hooks/useSyncExternalStor
 import { UseThrottleDemo } from "./Components/Hooks/useThrottle";
 import { UseTransitionDemo } from "./Components/Hooks/useTransition";
 import { UseWindowSizeDemo } from "./Components/Hooks/useWindowSize";
+import { CompoundComponentsDemo } from "./Components/Patterns/CompoundComponents";
+import { RenderPropsVsHooksDemo } from "./Components/Patterns/RenderPropsVsHooks";
+import { HigherOrderComponentsDemo } from "./Components/Patterns/HigherOrderComponents";
+import { ControlledUncontrolledDemo } from "./Components/Patterns/ControlledUncontrolled";
+import { PortalsDemo } from "./Components/Patterns/Portals";
+import { ErrorBoundariesDemo } from "./Components/Patterns/ErrorBoundaries";
+import { SuspenseDataDemo } from "./Components/Patterns/SuspenseData";
+import { PolymorphicDemo } from "./Components/Patterns/Polymorphic";
 
 // Page order within each tab.
 const hookDemos: ComponentType[] = [
@@ -97,11 +129,36 @@ const buildDemos: ComponentType[] = [
   KanbanBoardDemo,
   FormLibraryDemo,
   OtpInputDemo,
+  GridLightsDemo,
+  AccordionDemo,
+  TabsDemo,
+  ModalDemo,
+  ToastDemo,
+  StarRatingDemo,
+  MultiStepFormDemo,
+  FileUploadDemo,
+  TicTacToeDemo,
+  TodoUndoRedoDemo,
+  MultiSelectDemo,
+  GroupedAutocompleteDemo,
+  SpreadsheetDemo,
+  ParkingLotDemo,
+  VideoPlayerDemo,
+  TicketBookingDemo,
 ];
+
+const dataDemos: ComponentType[] = [RaceConditionsDemo, OptimisticUpdatesDemo, RealtimeTransportsDemo];
+
+const perfDemos: ComponentType[] = [MemoizationDemo, ProfilerDemo, CodeSplittingDemo, VirtualizationDeepDiveDemo, ContextPerformanceDemo];
+
+const patternDemos: ComponentType[] = [CompoundComponentsDemo, RenderPropsVsHooksDemo, HigherOrderComponentsDemo, ControlledUncontrolledDemo, PortalsDemo, ErrorBoundariesDemo, SuspenseDataDemo, PolymorphicDemo];
 
 const tabs = {
   hooks: { label: "Hooks", demos: hookDemos },
   builds: { label: "Machine coding / LLD", demos: buildDemos },
+  data: { label: "State & data fetching", demos: dataDemos },
+  perf: { label: "Performance", demos: perfDemos },
+  patterns: { label: "Patterns", demos: patternDemos },
 };
 
 type Tab = keyof typeof tabs;
