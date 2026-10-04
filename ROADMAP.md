@@ -72,66 +72,70 @@ fintech (Razorpay/Paytm/Groww), and product startups (Swiggy/Flipkart/Atlassian/
 - [x] Nested comments / threaded replies (recursive + flat map) — [notes](src/Components/MachineCoding/NestedComments/NestedComments.md)
 - [x] File explorer/tree view with lazy loading (nested + flat table) — [notes](src/Components/MachineCoding/FileExplorer/FileExplorer.md)
 - [x] Google Drive–like file explorer (HLD + mini build: layout, add/rename/delete, grid/list, breadcrumbs, search) — [notes](src/Components/MachineCoding/DriveExplorer/DriveExplorer.md)
-- [ ] Accordion (single-open and multi-open variants)
-- [ ] Tabs component (controlled + uncontrolled)
-- [ ] Modal / Dialog via `createPortal` (focus trap, escape-to-close, scroll lock)
-- [ ] Toast / notification system (queue, auto-dismiss, portal)
-- [ ] Star rating component
+- [x] Accordion (single-open and multi-open variants) — [notes](src/Components/MachineCoding/Accordion/Accordion.md)
+- [x] Tabs component (controlled + uncontrolled) — [notes](src/Components/MachineCoding/Tabs/Tabs.md)
+- [x] Modal / Dialog via `createPortal` (focus trap, escape-to-close, scroll lock) — [notes](src/Components/MachineCoding/Modal/Modal.md)
+- [x] Toast / notification system (queue, auto-dismiss, portal) — [notes](src/Components/MachineCoding/Toast/Toast.md)
+- [x] Star rating component — [notes](src/Components/MachineCoding/StarRating/StarRating.md)
 - [x] OTP input (auto-advance, paste support) — [notes](src/Components/MachineCoding/OtpInput/OtpInput.md)
-- [ ] Multi-step form / wizard with validation
-- [ ] File upload with progress bar
+- [x] Multi-step form / wizard with validation — [notes](src/Components/MachineCoding/MultiStepForm/MultiStepForm.md)
+- [x] File upload with progress bar — [notes](src/Components/MachineCoding/FileUpload/FileUpload.md)
 - [x] Drag-and-drop list (reordering) / Kanban board — [notes](src/Components/MachineCoding/KanbanBoard/KanbanBoard.md)
+- [x] Grid Lights (Build a grid of light cells where you can click on cells to activate them, turning them green. When all the cells are activated, all the cells will be deactivated one by one in the reverse order they were activated with 300ms interval in between them) - [notes](src/Components/MachineCoding/GridLights/GridLights.md)
 
-- [ ] Tic-tac-toe / game-state style state machine
-- [ ] Todo app with undo/redo (command pattern / history stack)
-- [ ] Chat UI with polling or WebSocket updates
-- [ ] Grid/spreadsheet-style editable table with keyboard nav
-- [ ] Calendar / date-picker component
-- [ ] Markdown editor with live preview (Rich text editing, syntax highlighting, and auto-save)
-- [ ] Multi-select dropdown with search and keyboard navigation
-- [ ] Autocomplete with grouped options and keyboard navigation
+- [x] Tic-tac-toe / game-state style state machine — [notes](src/Components/MachineCoding/TicTacToe/TicTacToe.md)
+- [x] Todo app with undo/redo (command pattern / history stack) — [notes](src/Components/MachineCoding/TodoUndoRedo/TodoUndoRedo.md)
+- [x] Grid/spreadsheet-style editable table with keyboard nav — [notes](src/Components/MachineCoding/Spreadsheet/Spreadsheet.md)
+
+- [x] Multi-select dropdown with search and keyboard navigation — [notes](src/Components/MachineCoding/MultiSelect/MultiSelect.md)
+- [x] Autocomplete with grouped options and keyboard navigation — [notes](src/Components/MachineCoding/GroupedAutocomplete/GroupedAutocomplete.md)
 
 - [x] Form library like Formik / React Hook Form (LLD) — [notes](src/Components/MachineCoding/FormLibrary/FormLibrary.md)
-- [ ] Multi-floor Parking Lot (LLD)
-- [ ] Video Player Control Bar (LLD)
-- [ ] Design Ticketmaster (HLD)
-- [ ] Design an OTT Streaming Player (HLD)
+- [x] Multi-floor Parking Lot — [notes](src/Components/MachineCoding/ParkingLot/ParkingLot.md)
+- [x] Video Player Control Bar — [notes](src/Components/MachineCoding/VideoPlayer/VideoPlayer.md)
+- [x] Ticket Booking System — [notes](src/Components/MachineCoding/TicketBooking/TicketBooking.md)
 
 ## Phase 3 — State Management & Data Fetching
 
 - [ ] Context + `useReducer` as a mini global store
 - [ ] Building a minimal client cache (stale-while-revalidate concept) from scratch
-- [ ] Race conditions in data fetching & request cancellation (`AbortController`)
-- [ ] Optimistic updates (manual, then via `useOptimistic`)
-- [ ] Polling vs WebSockets vs SSE — tradeoffs and a small implementation of each
+- [x] Race conditions in data fetching & request cancellation (`AbortController`) — [notes](src/Components/DataFetching/RaceConditions/RaceConditions.md)
+- [x] Optimistic updates (manual, then via `useOptimistic`) — [notes](src/Components/DataFetching/OptimisticUpdates/OptimisticUpdates.md)
+- [x] Polling vs WebSockets vs SSE — tradeoffs and a small implementation of each — [notes](src/Components/DataFetching/RealtimeTransports/RealtimeTransports.md)
 - [ ] Where TanStack Query / SWR fit in vs hand-rolled hooks (concepts, not necessarily installed)
 
 ## Phase 4 — Performance Optimization
 
-- [ ] `memo`, `useMemo`, `useCallback` — when they actually help vs cargo-culting
-- [ ] Diagnosing unnecessary re-renders with React DevTools Profiler
-- [ ] Code splitting & lazy loading (`React.lazy`, `Suspense`)
-- [ ] List virtualization deep dive
-- [ ] Avoiding prop-drilling-induced re-renders (context splitting, composition)
-- [ ] React Compiler — what it auto-memoizes and what it doesn't change
+- [x] `memo`, `useMemo`, `useCallback` — when they actually help vs cargo-culting — [notes](src/Components/Performance/Memoization/Memoization.md)
+- [x] Diagnosing unnecessary re-renders with React DevTools Profiler — [notes](src/Components/Performance/Profiler/Profiler.md)
+- [x] Code splitting & lazy loading (`React.lazy`, `Suspense`) — [notes](src/Components/Performance/CodeSplitting/CodeSplitting.md)
+- [x] List virtualization deep dive — [notes](src/Components/Performance/VirtualizationDeepDive/VirtualizationDeepDive.md)
+- [x] Avoiding prop-drilling-induced re-renders (context splitting, composition) — [notes](src/Components/Performance/ContextPerformance/ContextPerformance.md)
+- [x] React Compiler — what it auto-memoizes and what it doesn't change — [notes](src/Components/Performance/ReactCompiler/ReactCompiler.md)
 
 ## Phase 5 — Advanced Component Patterns
 
-- [ ] Compound components (`Tabs.Root`, `Tabs.List`, `Tabs.Panel` style APIs)
-- [ ] Render props vs custom hooks (why hooks mostly won)
-- [ ] Higher-order components (still asked in legacy codebases)
-- [ ] Controlled vs uncontrolled components
-- [ ] Portals beyond modals (tooltips, dropdowns)
-- [ ] Error boundaries (class-based today; note on the upcoming `ErrorBoundary` primitives)
-- [ ] `Suspense` for data fetching, not just lazy loading
-- [ ] Polymorphic components (`as` prop) in TypeScript
+- [x] Compound components (`Tabs.Root`, `Tabs.List`, `Tabs.Panel` style APIs) — [notes](src/Components/Patterns/CompoundComponents/CompoundComponents.md)
+- [x] Render props vs custom hooks (why hooks mostly won) — [notes](src/Components/Patterns/RenderPropsVsHooks/RenderPropsVsHooks.md)
+- [x] Higher-order components (still asked in legacy codebases) — [notes](src/Components/Patterns/HigherOrderComponents/HigherOrderComponents.md)
+- [x] Controlled vs uncontrolled components — [notes](src/Components/Patterns/ControlledUncontrolled/ControlledUncontrolled.md)
+- [x] Portals beyond modals (tooltips, dropdowns) — [notes](src/Components/Patterns/Portals/Portals.md)
+- [x] Error boundaries (class-based today; note on the upcoming `ErrorBoundary` primitives) — [notes](src/Components/Patterns/ErrorBoundaries/ErrorBoundaries.md)
+- [x] `Suspense` for data fetching, not just lazy loading — [notes](src/Components/Patterns/SuspenseData/SuspenseData.md)
+- [x] Polymorphic components (`as` prop) in TypeScript — [notes](src/Components/Patterns/Polymorphic/Polymorphic.md)
 
 ## Phase 6 — TypeScript with React
 
-- [ ] Typing props: unions, discriminated unions, generics in components
-- [ ] Typing custom hooks (generic return tuples, overloads)
-- [ ] Typing event handlers and refs correctly
-- [ ] `satisfies`, utility types (`ComponentProps`, `PropsWithChildren`) in real components
+- [x] Typing props: unions, discriminated unions, generics in components — [notes](src/Components/TypeScript/TypingProps.md)
+- [x] Typing custom hooks (generic return tuples, overloads) — [notes](src/Components/TypeScript/TypingHooks.md)
+- [x] Typing event handlers and refs correctly — [notes](src/Components/TypeScript/EventsAndRefs.md)
+- [x] `satisfies`, utility types (`ComponentProps`, `PropsWithChildren`) in real components — [notes](src/Components/TypeScript/UtilityTypes.md)
+
+## HLD
+
+- [ ] Design an OTT Streaming Player
+- [ ] Google Calendar
+- [ ] Markdown editor with live preview (Rich text editing, syntax highlighting, and auto-save)- [ ] Chat UI with polling or WebSocket updates
 
 ## Your Questions
 
@@ -139,4 +143,4 @@ Add anything you've personally been asked or want covered — I'll fold these
 into the right phase above.
 
 - [ ] Currying with placeholder
-- [ ] Abort controller
+- [x] Abort controller — [notes](src/Components/DataFetching/RaceConditions/RaceConditions.md)
