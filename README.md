@@ -55,6 +55,19 @@ Built-in hooks, one at a time, in rough order of interview frequency.
   - [x] [`useMediaQuery`](src/Components/Hooks/useMediaQuery/useMediaQuery.ts)
   - [x] [`click or hold event`](src/Components/Hooks/useClickOrHold/useClickOrHold.ts)
 
+## Rendering Patterns Deep Dive
+
+All in one file — [notes](src/Components/RenderingPatterns/RenderingPatterns.md) (notes only; SSR/ISR/RSC need a server framework).
+
+- [x] [client side rendering](src/Components/RenderingPatterns/RenderingPatterns.md#1-client-side-rendering-csr)
+- [x] [server side rendering](src/Components/RenderingPatterns/RenderingPatterns.md#2-server-side-rendering-ssr--hydration)
+- [x] [static site generation](src/Components/RenderingPatterns/RenderingPatterns.md#3-static-site-generation-ssg)
+- [x] [incremental static regeneration](src/Components/RenderingPatterns/RenderingPatterns.md#4-incremental-static-regeneration-isr)
+- [x] [progressive hydration](src/Components/RenderingPatterns/RenderingPatterns.md#7-progressive-hydration)
+- [x] [selective hydration](src/Components/RenderingPatterns/RenderingPatterns.md#6-selective-hydration)
+- [x] [streaming server side rendering](src/Components/RenderingPatterns/RenderingPatterns.md#5-streaming-ssr)
+- [x] [React Server Components](src/Components/RenderingPatterns/RenderingPatterns.md#8-react-server-components-rsc)
+
 ## Phase 2 — Classic Machine Coding Build Questions
 
 The "build this component in 45–60 minutes" questions asked across FAANG,
