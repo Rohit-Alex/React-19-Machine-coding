@@ -18,6 +18,8 @@ import { CodeSplittingDemo } from "./Components/Performance/CodeSplitting";
 import { VirtualizationDeepDiveDemo } from "./Components/Performance/VirtualizationDeepDive";
 import { ContextPerformanceDemo } from "./Components/Performance/ContextPerformance";
 import { TicketBookingDemo } from "./Components/MachineCoding/TicketBooking";
+import { SnakeLadderDemo } from "./Components/MachineCoding/SnakeLadder";
+import { CookieConsentDemo } from "./Components/MachineCoding/CookieConsent";
 import { VideoPlayerDemo } from "./Components/MachineCoding/VideoPlayer";
 import { ParkingLotDemo } from "./Components/MachineCoding/ParkingLot";
 import { SpreadsheetDemo } from "./Components/MachineCoding/Spreadsheet";
@@ -146,6 +148,8 @@ const buildDemos: ComponentType[] = [
   ParkingLotDemo,
   VideoPlayerDemo,
   TicketBookingDemo,
+  SnakeLadderDemo,
+  CookieConsentDemo,
 ];
 
 const dataDemos: ComponentType[] = [MiniStoreDemo, RaceConditionsDemo, OptimisticUpdatesDemo, RealtimeTransportsDemo];
