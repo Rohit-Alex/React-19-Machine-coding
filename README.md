@@ -107,6 +107,8 @@ fintech (Razorpay/Paytm/Groww), and product startups (Swiggy/Flipkart/Atlassian/
 - [x] Multi-floor Parking Lot — [notes](src/Components/MachineCoding/ParkingLot/ParkingLot.md)
 - [x] Video Player Control Bar — [notes](src/Components/MachineCoding/VideoPlayer/VideoPlayer.md)
 - [x] Ticket Booking System — [notes](src/Components/MachineCoding/TicketBooking/TicketBooking.md)
+- [x] Snake & Ladder mini game — [notes](src/Components/MachineCoding/SnakeLadder/SnakeLadder.md)
+- [x] Cookie Consent Manager SDK (config service, consent state, consumer notifications) — [notes](src/Components/MachineCoding/CookieConsent/CookieConsent.md)
 
 ## Phase 3 — State Management & Data Fetching
 
