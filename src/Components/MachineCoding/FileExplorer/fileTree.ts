@@ -67,28 +67,27 @@ export function updateNode(
 // ---------- Version 2: flat table (the React docs' "normalized" shape) ----------
 
 export interface FlatNode extends Entry {
-  /** Same rule as `children` above: `undefined` = not loaded yet. */
+  /** Folders only. */
   childIds?: string[];
 }
 
 export type FileTable = Record<string, FlatNode>;
 
-export const initialTable: FileTable = { [ROOT.id]: { ...ROOT } };
-
-export function setChildrenInTable(
-  table: FileTable,
-  folderId: string,
-  entries: Entry[],
-): FileTable {
-  const folder = table[folderId];
-  if (!folder) return table; // Deleted while its children were loading.
-  const next: FileTable = {
-    ...table,
-    [folderId]: { ...folder, childIds: entries.map((e) => e.id) },
-  };
-  for (const e of entries) next[e.id] = { ...e };
-  return next;
-}
+/** The whole tree up front, like the React docs' `initialTravelPlan`. No server. */
+export const initialTable: FileTable = {
+  root: { ...ROOT, childIds: ["src", "public", "pkg", "readme"] },
+  src: { id: "src", name: "src", kind: "folder", childIds: ["components", "app", "main"] },
+  components: { id: "components", name: "components", kind: "folder", childIds: ["button", "modal", "icons"] },
+  icons: { id: "icons", name: "icons", kind: "folder", childIds: [] },
+  button: { id: "button", name: "Button.tsx", kind: "file" },
+  modal: { id: "modal", name: "Modal.tsx", kind: "file" },
+  app: { id: "app", name: "App.tsx", kind: "file" },
+  main: { id: "main", name: "main.tsx", kind: "file" },
+  public: { id: "public", name: "public", kind: "folder", childIds: ["favicon"] },
+  favicon: { id: "favicon", name: "favicon.svg", kind: "file" },
+  pkg: { id: "pkg", name: "package.json", kind: "file" },
+  readme: { id: "readme", name: "README.md", kind: "file" },
+};
 
 export function addToTable(
   table: FileTable,

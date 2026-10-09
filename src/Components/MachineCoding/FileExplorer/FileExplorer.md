@@ -58,7 +58,8 @@ opening it doesn't call the server. Folders the server sends start as
 
 ## 3. Loading: where to fetch, and the traps
 
-[`useChildLoader.ts`](./useChildLoader.ts) is shared by both versions. Its
+Only version 1 loads lazily; version 2 starts with the whole tree in memory
+(section 5). [`useChildLoader.ts`](./useChildLoader.ts)'s
 `load(folderId)` fetches that folder's contents and passes them to a callback
 that stores them.
 
@@ -99,9 +100,8 @@ stops the root being fetched twice.
 
 **Deleted while loading.** Open a folder, delete it before the response
 arrives. The response still comes back and tries to store children for a
-folder that's gone. Both versions handle it by doing nothing when the folder
-isn't found: `updateNode` finds no match and returns the tree unchanged;
-`setChildrenInTable` checks `if (!table[folderId]) return table`. Say this in
+folder that's gone. Handle it by doing nothing when the folder isn't found:
+`updateNode` finds no match and returns the tree unchanged. Say this in
 the interview — it's the race condition they're checking for.
 
 **Loaded data lives at the top, not in the folder component.** If each folder
@@ -164,10 +164,17 @@ The React docs' fix for deeply nested state, from *Choosing the State
 Structure → Avoid deeply nested state*: keep every item in one table by id,
 and have each item list its children's ids. The root lives in the table too.
 
+To keep the focus on the shape, this version skips the server: the whole
+tree is in the table from the start, like the docs' `initialTravelPlan`. To
+add lazy loading back, use `childIds: undefined` for "not loaded yet" and
+store a response by setting the folder's `childIds` and adding each child to
+the table.
+
 ```ts
 {
   root: { id: "root", name: "project", kind: "folder", childIds: ["src", "pkg"] },
-  src:  { id: "src",  name: "src",     kind: "folder", childIds: undefined },   // not loaded
+  src:  { id: "src",  name: "src",     kind: "folder", childIds: ["app"] },
+  app:  { id: "app",  name: "App.tsx", kind: "file" },
   pkg:  { id: "pkg",  name: "package.json", kind: "file" },
 }
 ```
@@ -176,17 +183,15 @@ Rendering is still recursive, exactly like the docs' `PlaceTree`: the
 component takes an **id**, not an object, and looks itself up:
 
 ```tsx
-const FolderTree = ({ id, parentId, api }) => {
-  const node = api.table[id];
+const FolderTree = ({ id, parentId, table, onDelete, … }) => {
+  const node = table[id];
   …
-  {children.map((c) => <FolderTree key={c.id} id={c.id} parentId={id} api={api} />)}
+  {children.map((c) => <FolderTree key={c.id} {...props} id={c.id} parentId={id} />)}
 };
 ```
 
 Updates touch only what changed, with no walk from the root:
 
-- **Store loaded children:** set the folder's `childIds`, add each child to the
-  table.
 - **Add:** put the new item in the table, append its id to the parent's
   `childIds`.
 - **Delete:** the docs' two steps. First remove the id from the parent's
@@ -199,8 +204,11 @@ Updates touch only what changed, with no walk from the root:
 Because delete needs the parent, `FolderTree` receives `parentId` as a prop,
 the same as in the docs.
 
-UI state (which folders are open, where a new file is being typed) lives at
-the top, keyed by id. Collapsing a folder no longer loses anything inside it.
+The table and its update functions live at the top and go down as props,
+like the docs' `placesById` and `onComplete`. Which folders are open lives
+there too, as a `Set` of ids, so collapsing a folder no longer loses anything
+inside it. Typing a new name or a rename only matters to one row, so that
+stays as local state in the row, same as version 1.
 
 (The [nested comments](../NestedComments/NestedComments.md) topic uses the
 same flat table but renders it with a loop instead of recursion. Both work;

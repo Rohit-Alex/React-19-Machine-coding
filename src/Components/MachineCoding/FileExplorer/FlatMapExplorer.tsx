@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { EntryRow } from "./EntryRow";
 import { NameForm } from "./NameForm";
 import {
@@ -7,66 +7,61 @@ import {
   initialTable,
   removeFromTable,
   renameInTable,
-  setChildrenInTable,
   sortEntries,
 } from "./fileTree";
-import type { FileTable, Kind } from "./fileTree";
-import { useChildLoader } from "./useChildLoader";
-import type { LoadStatus } from "./useChildLoader";
+import type { FileTable, FlatNode, Kind } from "./fileTree";
 
 const listStyle = { listStyle: "none", paddingLeft: 20, margin: 0 } as const;
 
-interface Api {
+interface FolderTreeProps {
+  id: string;
+  parentId: string | null;
   table: FileTable;
   expanded: ReadonlySet<string>;
-  creating: { parentId: string; kind: Kind } | null;
-  renamingId: string | null;
-  status: Record<string, LoadStatus>;
-  openFolder: (id: string) => void;
-  closeFolder: (id: string) => void;
-  startCreating: (parentId: string, kind: Kind) => void;
-  cancelCreating: () => void;
-  create: (parentId: string, name: string, kind: Kind) => void;
-  startRenaming: (id: string | null) => void;
-  rename: (id: string, name: string) => void;
-  remove: (parentId: string, id: string) => void;
-  load: (id: string) => void;
+  onExpand: (id: string, open: boolean) => void;
+  onAdd: (parentId: string, entry: FlatNode) => void;
+  onRename: (id: string, name: string) => void;
+  onDelete: (parentId: string, id: string) => void;
 }
 
-// Same recursion as the docs' normalized PlaceTree: it gets an id and looks
-// the item up in the table, instead of receiving a nested object.
-const FolderTree = ({ id, parentId, api }: { id: string; parentId: string | null; api: Api }) => {
-  const node = api.table[id];
-  const open = api.expanded.has(id);
-  const childIds = node.childIds;
-  const creating = api.creating?.parentId === id ? api.creating.kind : null;
-  const children = childIds ? sortEntries(childIds.map((c) => api.table[c])) : undefined;
+// The docs' PlaceTree: it gets an id (and its parent's id, for delete) and
+// looks the item up in the table, instead of receiving a nested object.
+const FolderTree = (props: FolderTreeProps) => {
+  const { id, parentId, table, expanded, onExpand, onAdd, onRename, onDelete } = props;
+  // Typing a name only matters to this row, so it stays local, as in version 1.
+  const [creating, setCreating] = useState<Kind | null>(null);
+  const [renaming, setRenaming] = useState(false);
+
+  const node = table[id];
+  const open = expanded.has(id);
+  const children = node.childIds && sortEntries(node.childIds.map((c) => table[c]));
 
   return (
     <li>
-      {api.renamingId === id && parentId !== null ? (
+      {renaming && parentId !== null ? (
         <NameForm
           label={`Rename ${node.name}`}
           initialName={node.name}
           submitLabel="Rename"
-          // The parent's other children: one lookup, since the parent is in the table.
-          siblings={(api.table[parentId].childIds ?? [])
-            .filter((c) => c !== id)
-            .map((c) => api.table[c])}
-          onSubmit={(name) => api.rename(id, name)}
-          onCancel={() => api.startRenaming(null)}
+          siblings={table[parentId].childIds!.filter((c) => c !== id).map((c) => table[c])}
+          onSubmit={(name) => {
+            onRename(id, name);
+            setRenaming(false);
+          }}
+          onCancel={() => setRenaming(false)}
         />
       ) : (
         <EntryRow
           entry={node}
           open={open}
-          expandable={node.kind === "folder" && (!childIds || childIds.length > 0)}
-          status={api.status[id]}
-          onToggle={() => (open ? api.closeFolder(id) : api.openFolder(id))}
-          onNew={(kind) => api.startCreating(id, kind)}
-          onRetry={() => api.load(id)}
-          onRename={parentId === null ? undefined : () => api.startRenaming(id)}
-          onDelete={parentId === null ? undefined : () => api.remove(parentId, id)}
+          expandable={node.kind === "folder" && (!children || children.length > 0)}
+          onToggle={() => onExpand(id, !open)}
+          onNew={(kind) => {
+            setCreating(kind);
+            onExpand(id, true);
+          }}
+          onRename={parentId === null ? undefined : () => setRenaming(true)}
+          onDelete={parentId === null ? undefined : () => onDelete(parentId, id)}
         />
       )}
       {/* Nothing to draw for an empty folder, unless a new file is being typed into it. */}
@@ -79,13 +74,22 @@ const FolderTree = ({ id, parentId, api }: { id: string; parentId: string | null
                 placeholder={creating === "file" ? "name.ext" : "folder name"}
                 submitLabel="Create"
                 siblings={children}
-                onSubmit={(name) => api.create(id, name, creating)}
-                onCancel={api.cancelCreating}
+                onSubmit={(name) => {
+                  onAdd(id, {
+                    id: crypto.randomUUID(),
+                    name,
+                    kind: creating,
+                    // A new folder is known to be empty; don't fetch it.
+                    ...(creating === "folder" && { childIds: [] }),
+                  });
+                  setCreating(null);
+                }}
+                onCancel={() => setCreating(null)}
               />
             </li>
           )}
           {children.map((child) => (
-            <FolderTree key={child.id} id={child.id} parentId={id} api={api} />
+            <FolderTree key={child.id} {...props} id={child.id} parentId={id} />
           ))}
         </ul>
       )}
@@ -95,66 +99,33 @@ const FolderTree = ({ id, parentId, api }: { id: string; parentId: string | null
 
 export const FlatMapExplorer = () => {
   const [table, setTable] = useState(initialTable);
-  // UI state lives up here, keyed by id, so collapsing a folder doesn't
-  // forget which folders inside it were open.
+  // Lifted up and keyed by id, so collapsing a folder doesn't forget which
+  // folders inside it were open.
   const [expanded, setExpanded] = useState<ReadonlySet<string>>(new Set([ROOT.id]));
-  const [creating, setCreating] = useState<Api["creating"]>(null);
-  const [renamingId, setRenamingId] = useState<string | null>(null);
 
-  const { status, load } = useChildLoader((folderId, entries) =>
-    setTable((t) => setChildrenInTable(t, folderId, entries)),
-  );
-
-  useEffect(() => load(ROOT.id), []);
-
-  const openFolder = (id: string) => {
-    setExpanded((prev) => new Set(prev).add(id));
-    if (!table[id].childIds) load(id);
-  };
-
-  const api: Api = {
-    table,
-    expanded,
-    creating,
-    renamingId,
-    status,
-    load,
-    openFolder,
-    closeFolder: (id) =>
-      setExpanded((prev) => {
-        const next = new Set(prev);
-        next.delete(id);
-        return next;
-      }),
-    startCreating: (parentId, kind) => {
-      setCreating({ parentId, kind });
-      openFolder(parentId);
-    },
-    cancelCreating: () => setCreating(null),
-    create: (parentId, name, kind) => {
-      setTable((t) =>
-        addToTable(t, parentId, {
-          id: crypto.randomUUID(),
-          name,
-          kind,
-          ...(kind === "folder" && { childIds: [] }),
-        }),
-      );
-      setCreating(null);
-    },
-    startRenaming: setRenamingId,
-    rename: (id, name) => {
-      setTable((t) => renameInTable(t, id, name));
-      setRenamingId(null);
-    },
-    remove: (parentId, id) => setTable((t) => removeFromTable(t, parentId, id)),
+  const handleExpand = (id: string, open: boolean) => {
+    setExpanded((prev) => {
+      const next = new Set(prev);
+      if (open) next.add(id);
+      else next.delete(id);
+      return next;
+    });
   };
 
   return (
     <div className="demo-card">
       <h4>Version 2: flat table, recursive component by id</h4>
       <ul style={{ ...listStyle, paddingLeft: 0 }}>
-        <FolderTree id={ROOT.id} parentId={null} api={api} />
+        <FolderTree
+          id={ROOT.id}
+          parentId={null}
+          table={table}
+          expanded={expanded}
+          onExpand={handleExpand}
+          onAdd={(parentId, entry) => setTable((t) => addToTable(t, parentId, entry))}
+          onRename={(id, name) => setTable((t) => renameInTable(t, id, name))}
+          onDelete={(parentId, id) => setTable((t) => removeFromTable(t, parentId, id))}
+        />
       </ul>
     </div>
   );

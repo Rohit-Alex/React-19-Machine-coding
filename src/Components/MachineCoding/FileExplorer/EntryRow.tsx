@@ -12,7 +12,8 @@ interface EntryRowProps {
   status?: LoadStatus;
   onToggle: () => void;
   onNew: (kind: Kind) => void;
-  onRetry: () => void;
+  /** Left out when there is nothing to load. */
+  onRetry?: () => void;
   /** Left out for the root, which can't be renamed or deleted. */
   onRename?: () => void;
   onDelete?: () => void;
