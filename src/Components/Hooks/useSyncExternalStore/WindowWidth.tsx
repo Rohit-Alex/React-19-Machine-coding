@@ -1,27 +1,9 @@
 import { useSyncExternalStore } from "react";
 
-function subscribe(callback: () => void) {
+const subscribe = (callback: () => void) => {
   window.addEventListener("resize", callback);
   return () => window.removeEventListener("resize", callback);
-}
-
-function getSnapshot() {
-  return window.innerWidth;
-}
-
-function getServerSnapshot() {
-  // No window on the server — pick a value that won't mismatch the
-  // client's first paint in a way that matters for this demo.
-  return 0;
-}
-
-/**
- * The reusable custom-hook shape the docs recommend: components never
- * touch subscribe/getSnapshot directly, they just call useWindowWidth().
- */
-function useWindowWidth() {
-  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
-}
+};
 
 /**
  * Scenario 1: window.innerWidth lives entirely outside React — there's no
@@ -31,7 +13,7 @@ function useWindowWidth() {
  * manually calls setState on every resize.
  */
 export const WindowWidth = () => {
-  const width = useWindowWidth();
+  const width = useSyncExternalStore(subscribe, () => window.innerWidth);
 
   return (
     <div className="demo-card">
