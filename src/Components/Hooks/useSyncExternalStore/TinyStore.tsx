@@ -7,52 +7,67 @@ import { useSyncExternalStore } from "react";
  * This is what useSyncExternalStore is *for* — bridging state React
  * doesn't own into a component's render.
  */
-let count = 0;
 let listeners: Array<() => void> = [];
 
-const counterStore = {
+const userStore = {
+  count: 1,
   increment() {
-    count += 1;
-    for (const listener of listeners) listener();
+    this.count++;
+    for (const listener of listeners) {
+      listener();
+    }
   },
-  subscribe(listener: () => void) {
-    listeners = [...listeners, listener];
-    return () => {
-      listeners = listeners.filter((l) => l !== listener);
-    };
-  },
-  getSnapshot() {
-    return count;
+  getCount() {
+    return this.count;
   },
 };
 
-function useCount() {
-  return useSyncExternalStore(
-    counterStore.subscribe,
-    counterStore.getSnapshot,
-  );
-}
+const subscribe = (cb: () => void) => {
+  listeners = [...listeners, cb];
+
+  return () => {
+    listeners = listeners.filter((listener) => listener !== cb);
+  };
+};
 
 /**
  * Two independent components, no shared parent state, no Context provider
  * — each just subscribes to the same module-level store directly.
  */
 function CounterReaderA() {
-  const count = useCount();
-  return <p>Reader A sees: {count}</p>;
+  const count = useSyncExternalStore(subscribe, () => userStore.getCount());
+  return (
+    <section>
+      <h4>Reader A</h4>
+      <div style={{ display: "inline-flex", gap: 4 }}>
+        <strong>Count</strong>
+        {"  "}
+        <em>{count1}</em>
+      </div>
+      <div>
+        <button onClick={() => userStore.increment()}>Increment Count</button>
+      </div>
+    </section>
+  )
 }
 
 function CounterReaderB() {
-  const count = useCount();
-  return <p>Reader B sees: {count}</p>;
+  const count = useSyncExternalStore(subscribe, () => userStore.getCount());
+  return (
+      <section>
+        <h4>Reader B</h4>
+        <div style={{ display: "inline-flex", gap: 4 }}>
+          <strong>Count</strong>
+          {"  "}
+          <em>{count1}</em>
+        </div>
+        <div>
+          <button onClick={() => userStore.increment()}>Increment Count</button>
+        </div>
+      </section>
+  )
 }
 
-/**
- * Scenario 2: a store outside React, read from two unrelated components.
- * Click either button — both readers update in lockstep, because they're
- * both subscribed to the same external source of truth rather than each
- * holding their own copy in useState.
- */
 export const TinyStore = () => {
   return (
     <div className="demo-card">
